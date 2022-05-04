@@ -2,16 +2,15 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split, cross_val_score, cross_val_predict
 from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score, confusion_matrix
-#from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
-# import lightgbm as lgb
 from sklearn import metrics, svm
 from sklearn.feature_selection import SelectKBest, f_classif
 from tqdm import tqdm
 import random
 import math
 from pandas import Series
-# from pyspark.sql import Row
+from pyspark.sql import Row
 
 from sklearn.impute import SimpleImputer
 
@@ -22,6 +21,17 @@ warnings.filterwarnings('ignore')
 df = pd.read_csv("data.csv").drop('Unnamed: 32',axis=1).drop('id',axis=1)
 df['diagnosis'] = df['diagnosis'].map({'M': 1, 'B': 0})
 df=df.T.drop_duplicates().T
+
+# Missing Value Imputation
+#df.ca.loc[df.ca=='?']     = '0' 
+#df.thal.loc[df.thal=='?'] = '3'
+
+# Remove Outlier
+#df = df[df.chol<500][df.oldpeak<5]
+
+# Remove Unnecessary Column
+# df.drop(columns = 'id', axis = 1, inplace = True)
+
 
 # Get features and target variables
 target = ['diagnosis']
@@ -60,35 +70,14 @@ def get_fitness(data, feature_list, target, population):
         fitness.append(predictive_model(data[columns], data[target]))                
     return fitness
 
-#For Random Forest Classifier
-''' def predictive_model(X,y):
+def predictive_model(X,y):
     X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.2, random_state=7)
     rfc = RandomForestClassifier(n_estimators=100, random_state=0, n_jobs=-1)
     rfc.fit(X_train,y_train)
     return accuracy_score(y_test, rfc.predict(X_test))
 
     predictions = rfc.predict(X_test)
-    rfc_pred = rfc.predict(X_test) '''
-
-#For XGBoost Classifier
-def predictive_model(X,y):
-    X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.2, random_state=7)
-    xgb = XGBClassifier(n_estimators=100, random_state=0, n_jobs=-1)
-    xgb.fit(X_train,y_train)
-    return accuracy_score(y_test, xgb.predict(X_test))
-
-    predictions = xgb.predict(X_test)
-    xgb_pred = xgb.predict(X_test)
-
-#For LightGBM Classifier
-""" def predictive_model(X,y):
-    X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.2, random_state=7)
-    clf = lgb.LGBMClassifier(n_estimators=100, random_state=0, n_jobs=-1)
-    clf.fit(X_train,y_train)
-    return accuracy_score(y_test, clf.predict(X_test))
-
-    predictions = rfc.predict(X_test)
-    rfc_pred = rfc.predict(X_test) """
+    rfc_pred = rfc.predict(X_test)
     
     
     
@@ -135,7 +124,8 @@ def ga(data, feature_list, target, n, max_iter):
     return optimal_solution, optimal_value
 
 # Execute Genetic Algorithm to obtain Important Feature
-feature_set, acc_score= ga(df, feature_list, target, 20, 300)
+feature_set, acc_score= ga(df, feature_list, target, 20, 1000)
+# exit(0)
 
 # Filter Selected Features
 feature_set = [feature_list[i] for i in range(len(feature_list)) if feature_set[i]==1]
@@ -146,22 +136,9 @@ print('Optimal Feature Set\n',feature_set,'\nOptimal Accuracy =', round(acc_scor
 #print('Average Accuracy saved', Accuracy_Score, '\n Average Precision', Precision_Score, '\n Average Recall',Recall_Score,'\n Average F1-Score',  F1_Score)
 
 
-#Random Forest
-""" 
 rfc = RandomForestClassifier(n_estimators=100, random_state=0, n_jobs=-1)
 scores = cross_val_score(estimator=rfc, X=X, y=y, cv=10, scoring='accuracy')
 predicted_label = cross_val_predict(estimator=rfc, X=X, y=y, cv=10)
-"""
- #XGBoost 
-xgb = XGBClassifier(n_estimators=100, random_state=0, n_jobs=-1)
-scores = cross_val_score(estimator=xgb, X=X, y=y, cv=10, scoring='accuracy')
-predicted_label = cross_val_predict(estimator=xgb, X=X, y=y, cv=10)
-
-#LightGBM
-""" clf = lgb.LGBMClassifier(n_estimators=100, random_state=0, n_jobs=-1)
-scores = cross_val_score(estimator=clf, X=X, y=y, cv=10, scoring='accuracy')
-predicted_label = cross_val_predict(estimator=clf, X=X, y=y, cv=10) """
-
 score = round(scores.mean() * 100, 4)
 #print(score)
 Accuracy_Score = accuracy_score(y, predicted_label)
@@ -176,9 +153,7 @@ print(confusion)
 
 
 import matplotlib.pyplot as plt
-# model = RandomForestClassifier() 
-model = XGBClassifier()
-# model = lgb.LGBMClassifier()
+model = RandomForestClassifier()
 model.fit(X,y)
 print(model.feature_importances_) 
 #use inbuilt class feature_importances of tree based classifiers
@@ -186,3 +161,5 @@ print(model.feature_importances_)
 feat_importances = pd.Series(model.feature_importances_, index=X.columns)
 feat_importances.nlargest(10).plot(kind='barh')
 plt.show()
+      
+        
