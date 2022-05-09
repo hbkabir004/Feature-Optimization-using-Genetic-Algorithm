@@ -2,9 +2,9 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split, cross_val_score, cross_val_predict
 from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score, confusion_matrix
-#from sklearn.ensemble import RandomForestClassifier
-from xgboost import XGBClassifier
-# import lightgbm as lgb
+# from sklearn.ensemble import RandomForestClassifier
+# from xgboost import XGBClassifier
+import lightgbm as lgb
 from sklearn import metrics, svm
 from sklearn.feature_selection import SelectKBest, f_classif
 from tqdm import tqdm
@@ -61,34 +61,34 @@ def get_fitness(data, feature_list, target, population):
     return fitness
 
 #For Random Forest Classifier
-''' def predictive_model(X,y):
+""" def predictive_model(X,y):
     X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.2, random_state=7)
     rfc = RandomForestClassifier(n_estimators=100, random_state=0, n_jobs=-1)
     rfc.fit(X_train,y_train)
     return accuracy_score(y_test, rfc.predict(X_test))
 
     predictions = rfc.predict(X_test)
-    rfc_pred = rfc.predict(X_test) '''
+    rfc_pred = rfc.predict(X_test) """ 
 
 #For XGBoost Classifier
-def predictive_model(X,y):
+""" def predictive_model(X,y):
     X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.2, random_state=7)
     xgb = XGBClassifier(n_estimators=100, random_state=0, n_jobs=-1)
     xgb.fit(X_train,y_train)
     return accuracy_score(y_test, xgb.predict(X_test))
 
     predictions = xgb.predict(X_test)
-    xgb_pred = xgb.predict(X_test)
+    xgb_pred = xgb.predict(X_test) """
 
 #For LightGBM Classifier
-""" def predictive_model(X,y):
+def predictive_model(X,y):
     X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.2, random_state=7)
     clf = lgb.LGBMClassifier(n_estimators=100, random_state=0, n_jobs=-1)
     clf.fit(X_train,y_train)
     return accuracy_score(y_test, clf.predict(X_test))
 
     predictions = rfc.predict(X_test)
-    rfc_pred = rfc.predict(X_test) """
+    rfc_pred = rfc.predict(X_test)
     
     
     
@@ -146,21 +146,21 @@ print('Optimal Feature Set\n',feature_set,'\nOptimal Accuracy =', round(acc_scor
 #print('Average Accuracy saved', Accuracy_Score, '\n Average Precision', Precision_Score, '\n Average Recall',Recall_Score,'\n Average F1-Score',  F1_Score)
 
 
-#Random Forest
-""" 
-rfc = RandomForestClassifier(n_estimators=100, random_state=0, n_jobs=-1)
+#Random Forest 
+""" rfc = RandomForestClassifier(n_estimators=100, random_state=0, n_jobs=-1)
 scores = cross_val_score(estimator=rfc, X=X, y=y, cv=10, scoring='accuracy')
-predicted_label = cross_val_predict(estimator=rfc, X=X, y=y, cv=10)
-"""
+predicted_label = cross_val_predict(estimator=rfc, X=X, y=y, cv=10) """
+
+
  #XGBoost 
-xgb = XGBClassifier(n_estimators=100, random_state=0, n_jobs=-1)
+""" xgb = XGBClassifier(n_estimators=100, random_state=0, n_jobs=-1)
 scores = cross_val_score(estimator=xgb, X=X, y=y, cv=10, scoring='accuracy')
 predicted_label = cross_val_predict(estimator=xgb, X=X, y=y, cv=10)
-
+ """
 #LightGBM
-""" clf = lgb.LGBMClassifier(n_estimators=100, random_state=0, n_jobs=-1)
+clf = lgb.LGBMClassifier(n_estimators=100, random_state=0, n_jobs=-1)
 scores = cross_val_score(estimator=clf, X=X, y=y, cv=10, scoring='accuracy')
-predicted_label = cross_val_predict(estimator=clf, X=X, y=y, cv=10) """
+predicted_label = cross_val_predict(estimator=clf, X=X, y=y, cv=10)
 
 score = round(scores.mean() * 100, 4)
 #print(score)
@@ -177,8 +177,8 @@ print(confusion)
 
 import matplotlib.pyplot as plt
 # model = RandomForestClassifier() 
-model = XGBClassifier()
-# model = lgb.LGBMClassifier()
+# model = XGBClassifier()
+model = lgb.LGBMClassifier()
 model.fit(X,y)
 print(model.feature_importances_) 
 #use inbuilt class feature_importances of tree based classifiers
