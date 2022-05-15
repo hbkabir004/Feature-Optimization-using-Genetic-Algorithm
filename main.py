@@ -19,7 +19,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Read Dataset
-df = pd.read_csv("data.csv").drop('Unnamed: 32',axis=1).drop('id',axis=1)
+df = pd.read_csv("BreastCancerWisconsin(Diagnostic)DataSet.csv").drop('Unnamed: 32',axis=1).drop('id',axis=1)
 df['diagnosis'] = df['diagnosis'].map({'M': 1, 'B': 0})
 df=df.T.drop_duplicates().T
 
