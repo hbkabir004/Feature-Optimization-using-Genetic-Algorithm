@@ -2,7 +2,7 @@
 <br>
 <p align="center">
 
-  <h3 align="center">A predictive analysis application for Feature Optimization using Genetic Algorithm</h3>
+  <h3 align="center">A predictive Analysis System for Feature Optimization using Genetic Algorithm</h3>
 <br>
 
 <!-- Installation Instruction -->
