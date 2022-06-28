@@ -30,12 +30,10 @@ https://www.python.org/downloads/
 <br>
 2.4  Verify the Python Installation.
 <br>
-<br>
 
 ## 3. Install & Import Necessary Python Packages in Visual Studio Code
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/paRXeLurjE4/default.jpg)](https://youtu.be/paRXeLurjE4)
-<br>
 <br>
 
 ## 4. Open the project in the IDE (VS CODE recommended)
