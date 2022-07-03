@@ -33,6 +33,8 @@ https://www.python.org/downloads/
 
 ## 3. Install & Import Necessary Python Packages in Visual Studio Code
 
+Follow the tutorial to install & import necessary python packages in VS Code
+
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/paRXeLurjE4/default.jpg)](https://youtu.be/paRXeLurjE4)
 <br>
 
