@@ -23,7 +23,6 @@ https://github.com/hbkabir004/Feature-Optimization-using-Genetic-Algorithm.git
 https://www.python.org/downloads/
 ```
 
-<br>
 2.2  Run the Executable Installer.
 <br>
 2.3  Add Python to environmental variables.
@@ -37,7 +36,6 @@ Follow the tutorial to install & import necessary python packages in VS Code
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/paRXeLurjE4/default.jpg)](https://youtu.be/paRXeLurjE4)
 
-<br>
 
 ## 4. Open the project in the IDE (VS CODE recommended)
 
@@ -45,7 +43,6 @@ Follow the tutorial to Run Python in Visual Studio Code on Windows 10
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/AKVRkB0fot0/default.jpg)](https://youtu.be/AKVRkB0fot0)
 
-<br>
 
 ## 5. RESULTs
 
