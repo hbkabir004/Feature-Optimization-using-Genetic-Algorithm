@@ -2,12 +2,7 @@
 
 <br>
 <p align="center">
-
-<<<<<<< HEAD
-<h3 align="center">A predictive analysis application for Feature Optimization using Genetic Algorithm</h3>
-=======
   <h3 align="center">A predictive Analysis System for Feature Optimization using Genetic Algorithm</h3>
->>>>>>> 1aca69a6de52b10cd7cc2fb60336a9d48f75b615
 <br>
 
 <!-- Installation Instruction -->
@@ -41,7 +36,8 @@ https://www.python.org/downloads/
 Follow the tutorial to install & import necessary python packages in VS Code
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/paRXeLurjE4/default.jpg)](https://youtu.be/paRXeLurjE4)
-`<br>`
+
+<br>
 
 ## 4. Open the project in the IDE (VS CODE recommended)
 
@@ -49,17 +45,19 @@ Follow the tutorial to Run Python in Visual Studio Code on Windows 10
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/AKVRkB0fot0/default.jpg)](https://youtu.be/AKVRkB0fot0)
 
+<br>
+
 ## 5. RESULTs
 
 ### 5.1 RANDOM FOREST
 
-##### Optimal Feature Set
+#### Optimal Feature Set
 
 ```sh
 ['radius_mean', 'texture_mean', 'area_mean', 'smoothness_mean', 'compactness_mean', 'concavity_mean', 'concave points_mean', 'symmetry_mean', 'radius_se', 'perimeter_se', 'concavity_se', 'radius_worst', 'texture_worst', 'area_worst', 'concave points_worst', 'fractal_dimension_worst']
 ```
 
-##### Feature Importances
+#### Feature Importances
 
 ```sh
 [0.0345544  0.01528677 0.05257772 0.04909357 0.00796349 0.0073864
@@ -85,13 +83,13 @@ M   14  198
 
 ### 5.2 Light GBM
 
-##### Optimal Feature Set
+#### Optimal Feature Set
 
 ```sh
  ['smoothness_mean', 'concavity_mean', 'concave points_mean', 'perimeter_se', 'area_se', 'concave points_se', 'radius_worst', 'texture_worst', 'perimeter_worst', 'area_worst', 'smoothness_worst', 'compactness_worst', 'concavity_worst', 'concave points_worst', 'symmetry_worst', 'fractal_dimension_worst']
 ```
 
-##### Feature Importances
+#### Feature Importances
 
 ```sh
 [ 69 170  49  36  65  64  88 174  81  54  80  79  48 142  54  43  27  47
@@ -113,13 +111,13 @@ M   9     203
 
 ### 5.3 XGBoost
 
-##### Optimal Feature Set
+#### Optimal Feature Set
 
 ```sh
 ['perimeter_mean', 'smoothness_mean', 'compactness_mean', 'concavity_mean', 'concave points_mean', 'fractal_dimension_mean', 'concavity_se', 'concave points_se', 'symmetry_se', 'fractal_dimension_se', 'texture_worst', 'area_worst', 'compactness_worst', 'concave points_worst', 'symmetry_worst']
 ```
 
-##### Feature Importances
+#### Feature Importances
 
 ```sh
 [0.00523759 0.01394322 0. 0.01937084 0.00388636 0.00419483
