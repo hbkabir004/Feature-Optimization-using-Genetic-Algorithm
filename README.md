@@ -23,12 +23,10 @@ https://github.com/hbkabir004/Feature-Optimization-using-Genetic-Algorithm.git
 https://www.python.org/downloads/
 ```
 
-<br>
-2.2  Run the Executable Installer.
-<br>
-2.3  Add Python to environmental variables.
-<br>
-2.4  Verify the Python Installation.
+2.2 Run the Executable Installer.
+2.3 Add Python to environmental variables.
+2.4 Verify the Python Installation.
+
 <br>
 
 ## 3. Install & Import Necessary Python Packages in Visual Studio Code
