@@ -3,7 +3,11 @@
 <br>
 <p align="center">
 
+<<<<<<< HEAD
 <h3 align="center">A predictive analysis application for Feature Optimization using Genetic Algorithm</h3>
+=======
+  <h3 align="center">A predictive Analysis System for Feature Optimization using Genetic Algorithm</h3>
+>>>>>>> 1aca69a6de52b10cd7cc2fb60336a9d48f75b615
 <br>
 
 <!-- Installation Instruction -->
@@ -33,6 +37,8 @@ https://www.python.org/downloads/
 <br>
 
 ## 3. Install & Import Necessary Python Packages in Visual Studio Code
+
+Follow the tutorial to install & import necessary python packages in VS Code
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/paRXeLurjE4/default.jpg)](https://youtu.be/paRXeLurjE4)
 `<br>`
