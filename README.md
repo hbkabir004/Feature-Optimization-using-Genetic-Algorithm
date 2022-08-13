@@ -17,15 +17,17 @@ https://github.com/hbkabir004/Feature-Optimization-using-Genetic-Algorithm.git
 
 ## 2. Install Python
 
-2.1 Download the Python Installer binaries.
+##### 2.1 Download the Python Installer binaries.
 
 ```sh
 https://www.python.org/downloads/
 ```
 
-2.2 Run the Executable Installer.
-2.3 Add Python to environmental variables.
-2.4 Verify the Python Installation.
+##### 2.2 Run the Executable Installer.
+
+##### 2.3 Add Python to environmental variables.
+
+##### 2.4 Verify the Python Installation.
 
 <br>
 
