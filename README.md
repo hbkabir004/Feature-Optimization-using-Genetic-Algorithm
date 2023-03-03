@@ -70,10 +70,10 @@ Follow the tutorial to Run Python in Visual Studio Code on Windows 10
 ```sh
 Optimal Accuracy = 99 %
 
-Average Accuracy saved 0.961335676625659
-Average Precision      0.9612987777153709
-Average Recall         0.9557766502827546
-Average F1-Score       0.9584064327485381
+Average Accuracy saved  0.961335676625659
+Average Precision       0.9612987777153709
+Average Recall          0.9557766502827546
+Average F1-Score        0.9584064327485381
 
      B    M
 B  349    8
@@ -99,10 +99,10 @@ M   14  198
 ```sh
 Optimal Accuracy = 99 %
 
-Average Accuracy saved 0.9718804920913884
-Average Precision 0.9707985143918292
-Average Recall 0.9689696633370328
-Average F1-Score 0.9698694696708942
+Average Accuracy saved  0.9718804920913884
+Average Precision       0.9707985143918292
+Average Recall          0.9689696633370328
+Average F1-Score        0.9698694696708942
 
      B      M
 B   350     7
@@ -130,10 +130,10 @@ M   9     203
 ```sh
 Optimal Accuracy = 99 %
 
-Average Accuracy saved 0.9648506151142355
-Average Precision 0.966116035455278
-Average Recall 0.9585777707309339
-Average F1-Score 0.9621111229490731
+Average Accuracy saved  0.9648506151142355
+Average Precision       0.966116035455278
+Average Recall          0.9585777707309339
+Average F1-Score        0.9621111229490731
 
      B      M
 B   351     6
