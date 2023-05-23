@@ -1,25 +1,29 @@
-import numpy as np
-import pandas as pd
-from sklearn.model_selection import train_test_split, cross_val_score, cross_val_predict
-from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score, confusion_matrix
-from sklearn.ensemble import RandomForestClassifier
-from xgboost import XGBClassifier
-from sklearn import metrics, svm
-from sklearn.feature_selection import SelectKBest, f_classif
-from tqdm import tqdm
-import random
-import math
-from pandas import Series
-from pyspark.sql import Row
+        import numpy as np
+        import pandas as pd
+        import os, sys
+        from sklearn.preprocessing import MinMaxScaler
+        from xgboost import XGBClassifier
+        from sklearn.model_selection import train_test_split
+        from sklearn.metrics import accuracy_score
+        from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
+        from sklearn.model_selection import cross_val_score, cross_val_predict
+        from sklearn.ensemble import RandomForestClassifier
+        from xgboost import XGBClassifier
+        from sklearn import metrics
+        from sklearn import svm
+       #from sklearn.feature_selection import SelectKBest
+        from sklearn.feature_selection import f_classif
+        import random
+        import math
+        from pandas import Series
+        from pyspark.sql import Row
 
-from sklearn.impute import SimpleImputer
-
-import warnings
-warnings.filterwarnings('ignore')
-
-# Read Dataset
-df = pd.read_csv("data.csv").drop('Unnamed: 32',axis=1).drop('id',axis=1)
-df['diagnosis'] = df['diagnosis'].map({'M': 1, 'B': 0})
+        # Read Dataset
+df = pd.read_csv("survey-lung-cancer.csv")
+d = {'NO': 0, 'YES': 1}
+df['LUNG_CANCER'] = df['LUNG_CANCER'].map(d)
+d2 = {'M': 1, 'F': 0}
+df['GENDER'] = df['GENDER'].map(d2)
 df=df.T.drop_duplicates().T
 
 # Missing Value Imputation
@@ -30,15 +34,17 @@ df=df.T.drop_duplicates().T
 #df = df[df.chol<500][df.oldpeak<5]
 
 # Remove Unnecessary Column
-# df.drop(columns = 'id', axis = 1, inplace = True)
+df.drop(columns = 'AGE', axis = 1, inplace = True)
 
+# One-Hot Encoding
+df = pd.get_dummies(df, columns = ['GENDER','SMOKING','YELLOW_FINGERS','ANXIETY','PEER_PRESSURE','CHRONIC DISEASE','FATIGUE','ALLERGY','WHEEZING','ALCOHOL CONSUMING','COUGHING','SHORTNESS OF BREATH','SWALLOWING DIFFICULTY','CHEST PAIN'], drop_first = True)
 
 # Get features and target variables
-target = ['diagnosis']
-feature_list = [i for i in df.columns if i not in target]
+target ='LUNG_CANCER'
+target, feature_list = 'LUNG_CANCER', [i for i in df.columns if i not in target]
 
-y = df['diagnosis']
-X = df.drop(['diagnosis'], axis=1)
+X = df.loc[:, df.columns != target]
+y = df.loc[:, target]
 # Print list of features and target variable names
 print('Feature List\n',feature_list, '\n\nTarget = ',target)
 
@@ -94,7 +100,7 @@ def predictive_model(X,y):
 
 
 
-def ga(data, feature_list, target, n, max_iter):
+ def ga(data, feature_list, target, n, max_iter):
 
     c = len(feature_list) 
     
@@ -107,7 +113,7 @@ def ga(data, feature_list, target, n, max_iter):
     optimal_value= max(fitness)
     optimal_solution = population[np.where(fitness==optimal_value)][0]    
     
-    for i in tqdm(range(max_iter)):                
+    for i in range(max_iter):                
         population = random_selection(population)
         population = single_point_crossover(population)                        
         if np.random.rand() < 0.3:
@@ -121,11 +127,11 @@ def ga(data, feature_list, target, n, max_iter):
             optimal_value    = max(fitness)
             optimal_solution = population[np.where(fitness==optimal_value)][0]                               
         
-    return optimal_solution, optimal_value
+            return optimal_solution, optimal_value
+
 
 # Execute Genetic Algorithm to obtain Important Feature
 feature_set, acc_score= ga(df, feature_list, target, 20, 1000)
-# exit(0)
 
 # Filter Selected Features
 feature_set = [feature_list[i] for i in range(len(feature_list)) if feature_set[i]==1]
@@ -136,20 +142,16 @@ print('Optimal Feature Set\n',feature_set,'\nOptimal Accuracy =', round(acc_scor
 #print('Average Accuracy saved', Accuracy_Score, '\n Average Precision', Precision_Score, '\n Average Recall',Recall_Score,'\n Average F1-Score',  F1_Score)
 
 
-rfc = RandomForestClassifier(n_estimators=100, random_state=0, n_jobs=-1)
-scores = cross_val_score(estimator=rfc, X=X, y=y, cv=10, scoring='accuracy')
-predicted_label = cross_val_predict(estimator=rfc, X=X, y=y, cv=10)
-score = round(scores.mean() * 100, 4)
-#print(score)
-Accuracy_Score = accuracy_score(y, predicted_label)
-Precision_Score = precision_score(y, predicted_label, average="macro")
-Recall_Score = recall_score(y, predicted_label, average="macro")
-F1_Score = f1_score(y, predicted_label, average="macro")
-print('Average Accuracy saved', Accuracy_Score, '\n Average Precision', Precision_Score, '\n Average Recall',Recall_Score,'\n Average F1-Score',  F1_Score)
-cm = np.array(confusion_matrix(y, predicted_label))
-confusion = pd.DataFrame(cm, index=['B', 'M'], columns=['B', 'M']) 
-CM = confusion_matrix(y, predicted_label)
-print(confusion)
+ rfc = RandomForestClassifier(n_estimators=100, random_state=0, n_jobs=-1)
+    scores = cross_val_score(estimator=rfc, X=X, y=y, cv=10, scoring='accuracy')
+    predicted_label = cross_val_predict(estimator=rfc, X=X, y=y, cv=10)
+    score = round(scores.mean() * 100, 4)
+    #print(score)
+    Accuracy_Score = accuracy_score(y, predicted_label)
+    Precision_Score = precision_score(y, predicted_label, average="macro")
+    Recall_Score = recall_score(y, predicted_label, average="macro")
+    F1_Score = f1_score(y, predicted_label, average="macro")
+    print('Average Accuracy saved', Accuracy_Score, '\n Average Precision', Precision_Score, '\n Average Recall',Recall_Score,'\n Average F1-Score',  F1_Score)
 
 
 import matplotlib.pyplot as plt
@@ -161,5 +163,3 @@ print(model.feature_importances_)
 feat_importances = pd.Series(model.feature_importances_, index=X.columns)
 feat_importances.nlargest(10).plot(kind='barh')
 plt.show()
-      
-        
